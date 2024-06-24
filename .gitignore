@@ -1,0 +1,4 @@
+__pycache__/
+*.pyc
+rf_model.pkl
+preprocessing_pipeline.pkl
