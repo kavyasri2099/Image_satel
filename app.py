@@ -2,7 +2,6 @@ import streamlit as st
 import numpy as np
 from PIL import Image, ImageOps
 import pickle
-import os
 
 # Load the model and preprocessing pipeline
 with open('rf_model.pkl', 'rb') as model_file:
