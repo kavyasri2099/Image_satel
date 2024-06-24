@@ -20,18 +20,22 @@ def preprocess_image(image):
     img_array = preprocessing_pipeline.transform(img_array)
     return img_array
 
+# Streamlit app
 st.title("Satellite Image Classification App")
-st.write("Upload an image and the model will classify it into one of the following categories: Cloudy, Desert, Green Area, Water")
+st.write("Upload an image, and the model will classify it into one of the following categories: Cloudy, Desert, Green Area, Water")
 
-uploaded_file = st.file_uploader("Choose an image...", type="jpg")
+uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
 
 if uploaded_file is not None:
-    image = Image.open(uploaded_file)
-    st.image(image, caption='Uploaded Image.', use_column_width=True)
-    st.write("")
-    st.write("Classifying...")
-    
-    img_array = preprocess_image(image)
-    prediction = rf_model.predict(img_array)
-    category = categories[prediction[0]]
-    st.write(f"The image is classified as: {category}")
+    try:
+        image = Image.open(uploaded_file)
+        st.image(image, caption='Uploaded Image.', use_column_width=True)
+        st.write("")
+        st.write("Classifying...")
+        
+        img_array = preprocess_image(image)
+        prediction = rf_model.predict(img_array)
+        category = categories[prediction[0]]
+        st.write(f"The image is classified as: {category}")
+    except Exception as e:
+        st.write(f"An error occurred: {e}")
